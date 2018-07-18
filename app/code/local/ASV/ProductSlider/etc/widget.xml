@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+<widgets id="asv_productslider">
+    <category_product_slider type="catalog/product_list">
+        <name>Category product slider (ASV)</name>
+        <description>Displays the products for a given category
+            in a slider widget</description>
+    </category_product_slider>
+</widgets>-->
+<!--
+<widgets>
+    <customwidget_links type="productslider/widget" module="productslider">
+        <name>Customwidget(ASV)</name>
+        <description>Custom description</description>
+        <parameters>
+            <link_options>
+                <label>Link Options</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>multiselect</type>
+                <source_model>customwidget/options</source_model>
+            </link_options>
+            <custom_text>
+                <visible>1</visible>
+                <label>Custom Text</label>
+                <type>text</type>
+            </custom_text>
+        </parameters>
+    </customwidget_links>
+</widgets>-->
+<widgets>
+    <customwidget_links type="productslider/widget" module="productslider">
+        <name>Customwidget /asv/</name>
+        <description>Custom description</description>
+        <parameters>
+            <link_options>
+                <label>Link Options</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>multiselect</type>
+                <source_model>customwidget/options</source_model>
+            </link_options>
+            <custom_text>
+                <visible>1</visible>
+                <label>Custom Text</label>
+                <type>text</type>
+            </custom_text>
+        </parameters>
+    </customwidget_links>
+</widgets>

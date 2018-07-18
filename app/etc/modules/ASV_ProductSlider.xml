@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ASV_ProductSlider>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Widget />
+            </depends>
+        </ASV_ProductSlider>
+    </modules>
+</config>

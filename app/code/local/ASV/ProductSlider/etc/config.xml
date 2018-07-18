@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <ASV_ProductSlider>
+            <version>0.0.1</version>
+        </ASV_ProductSlider>
+    </modules>
+    <global>
+        <blocks>
+            <productslider>
+                <class>ASV_ProductSlider_Block</class>
+            </productslider>
+        </blocks>
+        <helpers>
+            <productslider>
+                <class>ASV_ProductSlider_Helper</class>
+            </productslider>
+        </helpers>
+    </global>
+</config>
