@@ -1,0 +1,86 @@
+/* @var className  $this /
+<?php $_productCollection = $this->getLoadedProductCollection()  ?>
+<?php /*echo "<h1>" . '$this ' . "</h1>" */?>
+<?php /*echo get_class($this); */?>
+<?php /*$_productCollection = Mage::app()->getLayout()->createBlock('catalog/product_list'); */ ?>
+<?php /*$_productCollection = Mage::getModel('catalog/product')
+    ->getCollection()
+    ->addAttributeToSort('created_at', 'DESC')
+    ->addAttributeToSelect('*')
+    ->load();
+*/?>
+<?php /*
+$_productCollection = Mage::getModel('catalog/product')
+    ->getCollection()
+    ->addAttributeToSort('created_at', 'DESC')
+    ->addAttributeToSelect('*')
+    ->load();
+foreach ($_productCollection as $_product) {
+    echo $_product->getId() . '</br>';
+    echo $_product->getName() . '</br>';
+    echo $_product->getProductUrl() . '</br>';
+    echo $_product->getPrice() . '</br>';
+}  */
+?>
+
+<!-- ASV: code for testting -->
+<div class="block-content">
+    <p><?php /* echo $this->__('Category ID: %s', $this->getCategoryId()) */?></p>
+    <ul>
+        <?php foreach ($_productCollection as $_product): ?>
+            <!-- <li><?php /* echo $_product->getName(); echo $_product->getPrice(); */?></li> -->
+            <?php endforeach; ?>
+    </ul>
+</div>
+
+<div class="block-image-slider">
+    <div class="block-title">
+        <h2><?php echo $this->getTitle() ?></h2>
+    </div>
+    <div class="productslider-container">
+        <div id="productslider-<?php echo $this->getCategoryId() ?>">
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php /*print_r($_product); */ ?>
+                <div class="slider-item">
+                    <a href="<?php echo $_product->getProductUrl() ?>"
+                       title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                       class="carousel-image"><img
+                                src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(250); ?>"
+                                width="210" height="210"
+                                alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/></a>
+                    <div class="slider-item-content">
+                        <p>
+                            <?php echo $_product->getName() ?>
+                        </p>
+                        <?php echo $this->getPriceHtml($_product) ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <!--<h1>separator</h1>-->
+        <div class="productslider-controls">
+            <a id="btn-prev-<?php echo $this->getCategoryId() ?>" class="btn-prev" href="#">&lt;</a>
+            <a id="btn-next-<?php echo $this->getCategoryId() ?>" class="btn-next" href="#">&gt;</a>
+            <div id="pager-<?php echo $this->getCategoryId() ?>" class="pager"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ASV adding View All -->
+<!--<span>View All</span>-->
+<a href="<?php echo $this->getUrl('') ?>" class="link_home"><span class="fa fa-home">View All</span></a>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#productslider-<?php echo $this->getCategoryId() ?>").carouFredSel({
+            width: "variable",
+            //width: '100%',
+            //direction: "right",
+            //responsive: false,
+            items: 4,
+            prev: '#btn-prev-<?php echo $this->getCategoryId() ?>',
+            next: '#btn-next-<?php echo $this->getCategoryId() ?>',
+            pagination: '#pager-<?php echo $this->getCategoryId() ?>'
+        });
+    });
+</script>
