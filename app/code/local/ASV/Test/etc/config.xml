@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Asv_Test>
+            <version>0.1.0</version>
+        </Asv_Test>
+    </modules>
+    <frontend>
+        <routers>
+            <test>
+                <use>standard</use>
+                <args>
+                    <module>Asv_Test</module>
+                    <frontName>test</frontName>
+                </args>
+            </test>
+        </routers>
+        <layout>
+            <updates>
+                <test>
+                    <file>asv_test.xml</file>
+                </test>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+           <test>
+               <class>Asv_Test_Block</class>
+           </test>
+        </blocks>
+ <!--       <helpers>
+           <productslider>
+               <class>Asv_Test_Helper</class>
+           </productslider>
+        </helpers>-->
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
