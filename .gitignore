@@ -1,7 +1,7 @@
 app/etc/local.xml
 /var
-/media
-!/media/catalog/*
-!/media/customer/*
-!/media/import/*
+/media*
+!media/catalog/*
+!media/customer/*
+!media/import/*
 .idea
