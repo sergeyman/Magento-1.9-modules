@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* local.xml
+* Local layout modifications for our local theme
+* @category design
+* @package custom_theme_1
+* @copyright Copyright (c) 2018 Sergii Akimov
+*/
+-->
+<layout version="0.1.0">
+    <default>
+
+
+    </default>
+</layout>

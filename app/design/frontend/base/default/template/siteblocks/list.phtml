@@ -1,0 +1,37 @@
+<h1>Parameters to a block</h1>
+<?php
+/*    $product_id = 10;
+    $this->getChild('list')->setData("categroyId", $category_id);
+    echo $this->getChildHtml('siteblocks.list', false);*/
+?>
+
+
+<h1>list.phtml with block</h1>
+<?php foreach($this->getBlocks() as $block):
+//$block = $this->getData('product_id');
+//die('list = ' . $block);
+//var_dump($block);
+?>
+    <div class="siteblock">
+        <!--<div class="block-title"><?php /*echo $block->getTitle()*/?></div>
+        <div class="block-content"><?php /*echo $block->getContent()*/?></div>-->
+
+        <div class="block-title"><?php echo $block->getId()?></div>
+        <div class="block-content"><?php echo $block->getName()?></div>
+    </div>
+
+<!--    <div class="siteblock">
+        //echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-1')->toHtml();
+        echo $this->getLayout()->createBlock('siteblocks/list')->setBlockId('block-1')->toHtml();
+    </div>-->
+
+<?php endforeach;?>
+
+<h1>list.phtml with block</h1>
+
+<div class="siteblock">
+    <?php
+    //echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-1')->toHtml();
+    echo $this->getLayout()->createBlock('siteblocks/list')->setBlockId('block-1')->toHtml();
+    ?>
+</div>

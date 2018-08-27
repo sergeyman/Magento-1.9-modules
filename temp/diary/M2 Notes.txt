@@ -1,0 +1,1070 @@
+﻿Install M2			https://github.com/magento/magento2  //branches!)
+*******************************************************************************
+
+Linux (LAMP)	"mint_235"	SAGI (sudo apt-get install unzip, p7zip-full) 	#install	>>uname -a, arch
+/etc/hosts
+1. Mint (Ubuntu 64bit) -> on VBox	https://www.youtube.com/watch?v=yoelaJU1Mbk	https://www.youtube.com/watch?v=pkGe3rFqeXs (increase supply)
+2. Mint -> Terminal			http://www.ithowto.ru/728-zapuskaem-terminal-v-linux-mint-nazhatiem-odnoy-knopki.html
+3. Mint -> LAMP				https://habr.com/post/220181/
+					https://blog.storagecraft.com/install-lamp-server-linux-mint-18-command/
+0)Magento 2 Installation on Windows 7	https://www.youtube.com/watch?v=Z9Da8PhKy6k
+					http://schogini.biz/magento/magento-2-installation-on-windows.html
+					1. Environment Setup (Minimal Magento 2 requirements)
+						Apache: 2.2 or 2.4, PHP: 5.5.x or 5.6.x, MySQL: 5.6.x
+						XAMPP 5.6.14 [Mg2ExtDev] (3)
+						GitHub acc to generate token
+					2. Install Composer 
+						https://getcomposer.org/doc/00-intro.md#using-the-installer
+						Select the location of php.exe file: (C:\xampp\php\php.exe)
+					3. Download Magento2 Installation Files
+						https://github.com/magento/magento2		
+					4. Create Composer files
+						We have to create two files: composer.bat and composer.phar
+						Open Command Prompt and Change directory (cd) to maganto2 installation directory 
+						(here it is c:/xampp/htdocs/magento2) and execute following command to create 
+						composer.bat file:
+							echo "@ECHO OFF" "php '%~dp0composer.phar' %*" > composer.bat
+						After that, you have to create the second file “composer.phar” . 
+						Execute the following command which will create the file for you:
+							php -r "readfile('https://getcomposer.org/installer');" | php
+					5. Uncomment the following dll (c:/xampp/php/php.ini)
+						extension=php_intl.dll (i.e. remove semi-colon(;) from the beginning), 
+						restart apache server (c:/xampp/ apache_start.bat or apache_stop.bat) 
+						whenever you make any change in php.ini file.
+					6. Execute composer install command
+						composer install (In OServer conslole!!! It will prompt for github username and password)
+
+					** Problem 1
+					 — The requested PHP extension ext-intl * is missing from your system. Install or enable PHP’s intl extension.
+					** Problem 2
+ 					— The requested PHP extension ext-xsl * is missing from your system. Install or enable PHP’s xsl extension.
+						Uncomment in PHP.INI
+					;always_populate_raw_post_data = -1
+					;extension=php_intl.dll
+					;extension=php_xsl.dll
+
+					**  Run XAMPP and be sure that ports for HTTP (80), HTTPS (442), MySQL (3306) is not used and run services.
+					    I have changed the port for HTTP (because of IIS) and https (because of VPN) to 8080 and 8181.
+
+					7. Create M2 db.
+					8. Magento 2 Installation
+						Open your browser and browse http://localhost/magento2/
+						Click on "Start Readiness Check"
+						open the php.ini and locate “always_populate_raw_post_data” && restart a2
+						always_populate_raw_post_data = -1 //Remove semi-color from the beginning, if it is there a
+						DB details
+					http://magento2-2/admin/ 	'root/mg2_admin' Encryption Key: df4ec5783c19f712156a772ac13f3fff
+					db: mg2.1.3_db_1
+
+$) M2 on OServer			https://toster.ru/q/493017	
+					https://magentorus.ru/shop-installation/ustanovka-magazina-na-magento-2.html
+					1. Запустить сайт на уст-ку
+###						Er: Server error! ...		//Delete .htaccess			
+						PHP v. 7.0-x64
+						php intl extension
+						Env/Path += S:OpnServer\OSPanel\modules\php\PHP-7.0-x64\
+					Все правильно что у Вас не отображаются картинки и плохо работает админка, и ява:-)
+					(в админке нету фото, только значки их отсутствия и неактивны пункты меню админки0)
+					Для этого поле установки Magento вам нужно в консоли запустить одну команду: 
+					php bin/magento setup:static-content:deploy
+					И после окончания загрузки все у Вас заработает как нужно! Удачи
+					Заходим в корневую папку сайта далее /app/etc/di.xml 
+					Заменяем в 607 строке слово Symblynk на Copy (Magento\Framework\App\View\Asset\MaterializationStrategy\Symlink)
+					Открываем папку /pub/static и удаляем всё содержимое КРОМЕ ФАЙЛА .htaccess!!!
+
+					hosts	attrib.exe -s -r -h -a C:\Windows\system32\drivers\etc\hosts
+						
+###Magento 2 checkout - 400 Bad Request			https://magento.stackexchange.com/questions/155948/magento-2-checkout-400-bad-request
+Please check root_dir/var/report/api folder if exist or root_dir/var/exception.log file you will get the reason probably.
+					
+
+*)@Echo off				https://dota2.ru/forum/threads/bat.846265/
+
+a)update Linux	sudo apt-get update && sudo apt-get dist-upgrade -y
+		sudo reboot
+b1)LAMP install	сайт адресу mysite.zz, а папка с файлами сайта расположена по пути /home/user/server/mysite.zz.
+		sudo apt-get install lamp-server^ -y
+		sudo apt-get install apache2 mysql-server php5.6 phpmyadmin
+		http://aboutubuntu.ru/post/lamp-ubuntu-14-04
+
+		sudo apt-get purge mysql-server mysql-server-5.1 mysql-server-core-5.1	apache2 php5		#uninstall
+		sudo apt-get purge libapache2-mod-auth-mysql phpmyadmin
+		sudo apt-get purge apache2 apache2-npm-prefork apache2-utils apache2.2-bin apache2.2-common libapache2-mod-php5
+		sudo apt-get autoremove
+
+
+b2)XAMP install	https://www.osradar.com/how-to-use-xampp-on-linux/			>>MAKE INSTALL SCRIPT
+		Apache Friends download page	32-bit, old schooled system, you should get XAMPP v7.0.8
+		0>https://devdocs.magento.com/guides/v2.1/install-gde/system-requirements-tech.html	#CHECK!
+		1>cd ~/Downloads
+		2>sudo chmod +x xampp-linux-x64-7.2.6-0-installer.run
+		3>sudo ./xampp-linux-x64-7.2.6-0-installer.run
+		 >sudo /opt/lampp/lampp start
+		4>sudo nano ~/.bashrc							#+
+			alias xampp='cd /opt/lampp && sudo ./manager-linux-x64.run'	#add line (xampp in /opt/lamp)
+		5>source ~/.bashrc
+		6>xampp	 (sudo /opt/lampp/lampp start | stop | restart)										#WORKS!
+
+		/opt/lampp/uninstall >sudo ./uninstall	#uninstall
+
+b3) Настройка Nginx для Magento			https://ruhighload.com/%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0+nginx+%D0%B4%D0%BB%D1%8F+magento
+
+c)Setup MySQL	https://jeka.by/post/1003/rabotaem-s-mysql-cherez-komandnuyu-stroku/	https://vds-admin.ru/mysql/administrirovanie-mysql-iz-komandnoi-stroki
+	root/root
+       *>$ sudo apt-get install mysql-server mysqlclient
+       *>$ sudo mysqladmin -u root password пароль	#запрос на ввод пароля бд админа
+	>$ sudo mysql -root 			#don't have pass
+	>$ mysql -h 127.0.0.1 -u root -p
+	>$ mysql -u root			#empty pass
+	>$ -skip-grant-tables			#forgot pass (или прописать параметр skip-grant-tables в конфигурационный файл сервера, my.cnf. 
+						При таком запуске, Mysql сервер, проигнорирует таблицу привилегий, и все базы данных, в том числе 
+						и системные, будут доступны для изменения, без каких-либо привилегий. В этом случае 
+						оператор SET PASSWORD, можно выполнить любым пользователем, для любого пользователя, в том числе root)
+						mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('new_pass')\g #или
+						mysql> use mysql;
+						mysql> update user set password=PASSWORD("newpassword") where user='root' and host='localhost';
+						mysql> flush privileges;	
+						перезапускаем сервер без опции --skip-grant-tables и пробуем подключиться.
+						Второй вариант, это воспользоваться внешней утилитой из стандартного комплекта Mysql сервера, mysqladmin.
+						freebsd8 /# mysqladmin -u root password "new_pass" # установит новый пароль 
+						freebsd8 /# mysqladmin -u root password "" # удалит старый пароль
+	mysql> show create table table_name;	#Бэкап структуры таблицы, а точнее sql-запрос на её создание
+	mysql> select * from update__v4_errors where id = 1102003\G						#Если в конце запроса поставить не ; а \G, - 
+														удобно, если таблица имеет много полей:
+	mysql> show processlist;										#какие запросы выполняются в данный момент на сервере MySQL (нагруженые БД)
+	mysql> mysqldump -u [username] -p [password] [database] > [dump_name.sql]				#Сделать бэкап базы database в файл dump_name.sql
+	mysql> mysql -u [username] -p [password] [database] < [dump_to_restore.sql]				#Развернуть базу из файла через командную строку
+	mysqldump -u[user] -p[password] -h[host] [database] [table_name] --no-data > /path/dump_name.sql	#Сделать дамп структуры одной таблицы mysql (без данных)
+	mysql> mysqldump -uroot mydatabase users > users.dump.sql						#example
+	mysql> mysql -uroot database_name < users.dump.sql							#Развернуть mysql-dump в БД с именем database_name
+	mysql> mysql -uroot -e 'show tables' database_name && echo done						#Вывести список таблиц базы данных, не подключаясь непосредственно к mysql
+	mysql> show variables like '%incr%';
+
+       *>$ sudo /etc/init.d/mysql restart		#перезапуск сервера
+	
+d)Test Apache	http://localhost			#<7>
+		>service apache2 status			#*<8>check Apache running
+		>netstat -anp | grep apache2
+
+
+e)Test PHP	sudo nano /var/www/testing.php		<?php phpinfo(); ?>
+		sudo service apache2 restart		#
+		http://localhost/info.php
+*check/set PHP path	>set %path%	>set path=%path%;c:/wamp/bin/php/php5.3.0; >set path=%path%;C:\wamp\xamp\php
+*downgrade/switch from PHP 7 to PHP 5.6 on Ubuntu 16.04	https://www.digitalocean.com/community/questions/how-to-downgrade-php7-to-php5-x
+							https://askubuntu.com/questions/761713/how-can-i-downgrade-from-php-7-to-php-5-6-on-ubuntu-16-04
+*deleting php						https://askubuntu.com/questions/59886/how-to-completely-remove-php
+		
+f)PHPMyAdmin						http://localhost/phpmyadmin
+
+*)is the following symlink in 		/etc/apache2/conf-available: phpmyadmin.conf -> ../../phpmyadmin/apache2.conf
+if not, create it: 			cd /etc/apache2/conf-available
+					sudo ln -s ../../phpmyadmin/apache2.conf phpmyadmin.conf
+is the following symlink in 		/etc/apache2/conf-enabled: phpmyadmin.conf -> ../conf-available/phpmyadmin.conf
+if not, create it and restart apache:	a2enconf phpmyadmin sudo /etc/init.d/apache2 restart
+
+**)По умолчанию "phpMyAdmin" установиться в папку "/usr/share/phpmyadmin". 
+Для того, чтобы "phpMyAdmin" заработал из деректории нашего сервера, необходимо создать символьную ссылку (symbolic link).
+					sudo ln -s /usr/share/phpmyadmin /var/www
+Теперь "phpMyAdmin" будет доступен по ссылке "http://localhost/phpmyadmin/index.php".
+
+g)Server tuning >sudo ln -s /etc/phpmyadmin /var/www			#ссылка на phpadmin в /var/www
+		>sudo scratch-text-editor /etc/apache2/apache2.conf	#Открываем конфигурационный файл сервера
+		ServerName localhost:80					#добавляем в конец файла строчку
+		>sudo scratch-text-editor /etc/hosts			#Открываем файл hosts для добавления нашего сайта:
+		127.0.1.1	mysite.zz <m2site1.com>			#Добавляем в файл строку
+Создаем в любой папке конфигурационный файл сайта с названием «mysite.zz»
+<VirtualHost *:80>
+  ServerAlias mysite.zz www.mysite.zz
+  DocumentRoot /home/user/server/mysite.zz
+  <Directory home/user/server/mysite.zz/>
+    AllowOverride All
+	(Require all granted)
+  </Directory>
+</VirtualHost>
+		>sudo cp полный_путь_к_файлу /etc/apache2/sites-available/	#и копируем его с правами суперпользователя в /etc/apache2/sites-available
+		>sudo a2ensite mysite.zz(.conf)				#активируем наш сайт 
+									(a2ensite/a2dissite {vhost_conf_name} - подкл/откл виртуальный хост (например "a2ensite default"))
+		>sudo a2enmod rewrite					#активируем модуль rewrite
+									(2enmod/a2dismod {modname} - подключение модуля (например "a2enmod rewrite" - 
+									подключает mod_rewrite)
+		>sudo /etc/init.d/apache2 restart (reload)		#перезапускае сервер
+*Возможные проблемы
+		Phpmyadmin не доступен по адресу localhost/phpmyadmin	"The requested URL /phpmyadmin/ was not found on this server"
+		>sudo dpkg-reconfigure phpmyadmin			#после завершения конфигурации (если был выбран apache2), 
+									в каталоге доступных модулей /etc/apache2/conf-available/ 
+									должен появиться файл phpmyadmin.conf, а в каталоге 
+									включенных модулей /etc/apache2/conf-enabled/ — 
+									символическая ссылка на этот файл.
+									также http-сервер должен автоматически перезапуститься для принятия 
+									новых установок. можно и самостоятельно перезапустить:	
+									$ sudo service apache2 reload		
+									
+		
+		(mysite.zz.conf)					#Доступ к нашему сайту может быть запрещен сервером (добавить разсширение)
+
+*)install mint git	>sudo add-apt-repository ppa:git-core/ppa	<9>
+			>sudo apt-get update
+			>sudo apt-get install git
+
+h)install m2 	CHECK (PHP) REQUIREMENTS!		https://devdocs.magento.com/guides/v2.0/install-gde/system-requirements-tech.html
+		-download M2-CE.zip to /var/www/html, 
+		>unzip file.zip -d destination_folder	#extract (>unzip -P <password> <sorce_file_path>.zip)
+		>mv old_name new_name 			#move/rename files/dirs(-R) (move: >mv (-R) file_name(dir_name) ~/Desktop
+		-/var/www/html$> cd m2-2_1
+		$> sudo chmod -R uog+rw .		#u-file owner, g-owner's group users, o-others, a(ugo)-all; +/-/= add/del/set rights	https://ru.wikipedia.org/wiki/Chmod
+							#Значениями по умолчанию являются: для файлов: 644 (-rw-r--r--), для каталогов: 755 (drwxr-xr-x)		
+		localhost/m2				//* Autoload error. Vendor autolad is not found. Please run 'composer install' under app root dir.
+h2)install m2 with composer				https://magenticians.com/installing-magento-2-composer/
+		To install Composer locally, run the installer in your project directory. See the Download page for instructions.
+		The installer will check a few PHP settings and then download composer.phar to your working directory. 
+		This file is the Composer binary. It is a PHAR (PHP archive), which is an archive format for PHP 
+		which can be run on the command line, amongst other things.
+		Now run php composer.phar in order to run Composer.	
+		You can install Composer to a specific directory by using the --install-dir option 
+		and additionally (re)name it as well using the --filename option. 
+		When running the installer when following the Download page instructions add the following parameters:
+		php composer-setup.php --install-dir=bin --filename=composer
+		Now run php bin/composer in order to run Composer.
+		>curl -sS https://getcomposer.org/installer | php (/opt/lampp/bin/php)		<8>###sudo chmod 777 -R /opt/lamp/(htdocs)
+			>mv composer.phar /usr/local/bin/composer				#<10>globally to move composer.phar to a directory that is in your path
+			>chmod +x /usr/local/bin/composer
+			>git clone https://github.com/magento/magento2.git			<11>
+			>cd magento2/
+				>git checkout master
+			>composer install || update
+			>sudo chmod -R 755 /var/www/magento2/
+			>sudo chmod -R 777 /var/www/magento2/{pub, var}
+		>composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition
+							
+							http://www.w3hacking.com/install-magento-2-using-composer-git-5-minutes/
+							https://github.com/magento/magento2
+							https://ospanel.io/docs/#rabota-s-composer	#OServer + Composer, CMSs!!!
+
++) install M2 with bitnami
+	a) M2 + sample data
+	b) extract copy to htdocs
+	c) db
+   	d) 
+
++) install M2 on OPC (Oracle Public Cloud) 	https://www.youtube.com/watch?v=y2jrjzeZjZs
+	BM acc /Open the OLaunchpad, insert OCredenitials in BM, Select App, Coustomize, Deploy
+	OPC acc
+j)M2 install problems					
+https://ospanel.io/forum/viewtopic.php?t=3612		php bin/magentoo setup:install --backend-frontname=[альтернативный путь к админке] 
+							--db-host=localhost --db-name=magento --db-user=[username] 
+							--db-password=[password] --base-url=http://localhost.com 
+							--language=uk_UA --timezone=Europe/Kiev --currency=UAH --use-rewrites=1 
+							--admin-user=[admin_login] --admin-password=[admin-password] --admin-email=[admin-email]
+
+*Magento 2 CRUD Eav module in just 5 minutes		https://www.youtube.com/watch?v=f8qBnOIRIs4
+							https://www.youtube.com/watch?v=Kk7du0r4CAQ&t=24s
+							https://www.youtube.com/watch?v=ocfbCmI-M1M
+
+*** M. CRUD Module					http://freaksidea.com/php_and_somethings/show-5-magento-sozdanie-crud-modulia
+    public function getRowUrl(Freaks_Quotes_Model_Quote $quote)   {
+        return $this->getUrl('*/*/view', array(
+            'id' => $quote->getId()
+        ));
+    }
+
+*** M2 CLI [M2 Coockbook, p. 44] /app/bin>
+>php magento
+>php magento cache:disable	#disable cache systems
+>php bin/magento cache
+>php bin/magento cache:status
+>php bin/magento 
+
+*** DEVELOPER HINTS Adm/System/Configuration/Advanced/Developer/Debug/		Allowed IPs 
+	[Current Configuration Scope]: Main Website.
+	>wiz devel-showhints yes (?)
+
+*** Command-line tool Wiz [M 1.8 Dev. Coockbook #1] Linux
+https://github.com/classyllama/Wiz
+>wiz admin-resetpass: This command can be used when you forget your admin password
+>wiz admin-createadmin: This command creates a new administrative user from scratch
+>wiz cache-clear: This command clears all cache or specifc cache
+>wiz devel-showhints: This command enables or disables frontend hints
+>wiz module-list: This command gives a list of all the installed modules
+>wiz sql-cli: This command opens the MySQL command line
+
+*** M2 Install sample data	https://devdocs.magento.com/guides/v2.2/install-gde/install/sample-data-after-magento.html
+	-using Composer			>php <your Magento install dir>/bin/magento sampledata:deploy
+					>php <your Magento install dir>/bin/magento setup:upgrade
+	-by cloning repositories	>git clone git@github.com:magento/magento2-sample-data.git
+
+**VBox (Linux-Windows) shared folders			https://unix.stackexchange.com/questions/16199/how-to-transfer-files-from-windows-to-ubuntu-on-virtualbox
+1. create your shared folder at your PC. for example "c:\SharedBoth"
+2. make sure you have selected your shared folder c:\SharedBoth 
+	at virtualbox menu "settings" - "shared folders" - "add" -"permanent/automount", before you start the ubuntu virtual machine.
+3. start the ubuntu terminal, type in command above,
+4. sudo mount -t vboxsf SharedBoth /media
+then check if folder sf_SharedBoth created in media folder Before you do the step 3, you need to make sure you have installed "guest additions"
+
+*https://losst.ru/analogi-notepad-dlya-linux
+
+***GIT commands:
+https://github.com/sergeyman 	sergey_man@ukr.net/git_235		as sergeyman	
+https://github.com/sergeymanUA 	sergeyman78@gmail.com/git_235		as sergeymanUA
+
+https://git-scm.com/book/ru/v1/%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D1%8B-Git-%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D1%83%D0%B4%D0%B0%D0%BB%D1%91%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%D0%BC%D0%B8
+>git --version
+>git config --list						//check
+>git config user.name
+>git config --global user.name "John Doe"			//set
+		     user.emaail "sergeyman78@gmail.com
+>git config credential.https://example.com.username myusername	//gitcredentials - providing usernames and passwords to Git
+*PHPStorm GitHub Credentials: File/Settings/Version Control/GitHub/[Auth type: password]: Host/Login/Password
+
+Local repo:
+>git add .  (*.c)						//'.'-add all files to index
+>git add LICENCE
+>git commit <-a> -m "init commit for project version"
+>git status -s, 
+>git diff --staged						//check what to add/remove from index to the next commit
+>git diff --cached						//check indexed changes
+>git rm file.name						//delete file from indexed area
+>git mv file_from file_to
+>git log							//check history version
+>git log -p -2							//-p - dif. of every commit, -2 - last two records
+>git log --stat							//short stat for every version
+>git log --pretty=oneline | short | full | fuller
+>git log --pretty=format:"%h - %an, %ar : %s"
+>git log --pretty=format:"%h %s" --graph			//branching and merging hist.s
+
+Remote repos:
+>git clone https://github.com/x/y
+>git fetch sv							//get all unexisting info from college
+>git pull							//get info from remote and merge automatically
+>git remote -v							//check URL remote for git
+>git remote add sv git://github.com/sergeyman/x/y.git		//add remote repo by aliase (sv)
+>git fetch sv							//get info sv has, but you haven't (changes)
+>git push origin master						//origin -server
+>git remote show origin						//get additional information
+>get remote show						//more info (Fetch/Push URL: sm/smUA)
+>git remote rename sv pb, git remote				//rename (now apply to pb/master, not sv/master)
+>git remote rm pb, git remote					//remove remote rep pb
+>git tag							//tags- mark history moments (for incoming versions: v1.0, ...)
+
+#git errors (PHPStrom)
+	Go to Settings>>Appearance & Behavior>>System Settings>>Passwords
+	File | Settings | Version Control | Git - change Git executable to Native
+	upgrade to 2017.3.6:  https://blog.jetbrains.com/phpstorm/2018/03/phpstorm-2017-3-5
+
+magento2-3/admin_pj01s0
+admin/mg2_admin		
+mg2_3_db_1
+Encryption Key:	c831d46a4e475ce05ce23f88c27b506e
+
+/etc/hosts
+
+***nix commands
+download:	>apt-get install rtorrent (on APT based System)
+		>yum install rbtorrent    (on YUM based system)
+		>wget http://www.site.com/file
+		>wget -r http://site.com			//download whole sit reccursevly
+		>wget -r -A png,pdf http://www.site.com	//download a spec. type of file (.pdf, .png) from a website
+cURL-tool for tansferring data over a number of protocols. A client-side app, downloader (wget diff-supp LDAP, POP3, Proxy Downloading,
+pausing downloading, resuming downloading)
+		>curl www.site.com			//
+		
+***M2 Modules	https://www.toptal.com/magento/magento-2-tutorial-building-a-complete-module
+		https://blog.landofcoder.com/magento-2-tutorials/
+		http://freaksidea.com/php_and_somethings/show-5-magento-sozdanie-crud-modulia
+
+
+*** M. Working with Models
+
+/* @var className  $this /
+<?php $_productCollection = $this->getLoadedProductCollection()  ?>
+<?php /*echo "<h1>" . '$this ' . "</h1>" */?>
+<?php /*echo get_class($this); */?>
+<?php /*$_productCollection = Mage::app()->getLayout()->createBlock('catalog/product_list'); */ ?>
+<?php /*$_productCollection = Mage::getModel('catalog/product')
+    ->getCollection()
+    ->addAttributeToSort('created_at', 'DESC')
+    ->addAttributeToSelect('*')
+    ->load();
+*/?>
+<?php /*
+$_productCollection = Mage::getModel('catalog/product')
+    ->getCollection()
+    ->addAttributeToSort('created_at', 'DESC')
+    ->addAttributeToSelect('*')
+    ->load();
+foreach ($_productCollection as $_product) {
+    echo $_product->getId() . '</br>';
+    echo $_product->getName() . '</br>';
+    echo $_product->getProductUrl() . '</br>';
+    echo $_product->getPrice() . '</br>';
+}  */
+?>
+$_products = Mage::getModel('catalog/product')->getCollection()
+//	->addAttributeToSelect('price');
+//	->addAttributeToSelect('description');
+//	->addAttributeToSelect('*'); // would return all
+	->addAttributeToSelect(array('name', 'product_url', 'small_image'))		//adds a condition to the WHERE part of the MySQL query 
+	->addAttributeToFilter('sku', array('like' => 'UX%'))
+
+	         ->addFieldToFilter('sku','SNEW0512');					//as your WHERE clauses
+	$_products->addFieldToFilter('price', array('gt' => '100'));			//products greater then $100
+	$_products->addAttributeToFilter('status', array('eq' => 1));
+	$_products->addAttributeToFilter('sku', array('neq' => 'test-product'));	//NOT EQUAL
+	$_products->addAttributeToFilter('sku', array('like' => 'UX%'));		//LIKE
+	$_products->addAttributeToFilter('sku', array('nlike' => 'err-prod%'));		//NOT LIKE
+	$_products->addAttributeToFilter('id', array('in' => array(1,4,74,98)));	//IN
+	$_products->addAttributeToFilter('id', array('nin' => array(1,4,74,98)));	//NOT IN
+	$_products->addAttributeToFilter('description', 'null');			//NULL
+	$_products->addAttributeToFilter('description', 'notnull');			//NOT NULL
+	$_products->addAttributeToFilter('id', array('gteq' => 5));			//greater then or equals to
+	$_products->addAttributeToFilter('id', array('lteq' => 5));			//less then or equals to
+	$_products->setOrder('entity_id','asc');
+	$_products->getSelect()->limit(100, 0);
+
+	->load();
+
+	echo (string) $products->getSelect();					//SELECT `e`.* FROM `magento_catalog_product_entity` AS `e`
+	var_dump($products->getFirstItem()->getData());
+	var_dump($products->getLastItem()->getData());
+	foreach ($products as $product) {
+		var_dump($product->getData());
+	}
+
+https://magento.stackexchange.com/questions/195383/get-product-not-work-magento-2
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+$collection = $productCollection->create()
+            ->addAttributeToSelect('*')
+            ->load();
+foreach ($collection as $product){
+     echo 'Name  =  '.$product->getName().'<br>';
+}
+?>	
+
+Please try to create test.php in your root directory and paste below code and run from browser http://your base url/test.php
+<?php
+use Magento\Framework\App\Bootstrap;
+require __DIR__ . '/app/bootstrap.php';
+$bootstrap = Bootstrap::create(BP, $_SERVER);
+$obj = $bootstrap->getObjectManager();
+$state = $obj->get('Magento\Framework\App\State');
+$state->setAreaCode('frontend');
+try {
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$productCollection = $objectManager->get('Magento\Catalog\Model\ResourceModel\Product\Collection');
+	$collection = $productCollection->create()
+            ->addAttributeToSelect('*')
+            ->load();
+foreach ($collection as $product){
+     echo 'Name  =  '.$product->getName().'<br>';
+     exit;
+}  
+} catch (\Exception $e) {
+    while ($e) {
+        echo $e->getMessage();        
+    }
+}
+
+*Get Model in Block (to View withot Ctrl):
+public function getCustomerRegistries() {
+	$collection = null;
+	$currentCustomer = Mage::getSingleton('customer/session')->getCustomer();
+	if($currentCustomer) {
+		$collection = Mage::getModel('mdg_giftregistry/entity')->getCollection()
+			->addFieldToFilter('customer_id', $currentCustomer->getId());
+	}
+	return $collection;
+}
+
+***M2 Widgets 	https://www.toptal.com/magento/custom-widgets-in-magento-2
+a) M2 W.
+- Recently Compared Products
+- Orders and Returns
+- Catalog Products List
+- Catalog Product Link
+- Catalog Category Link
+- Custom Block Widget
+
+Content > Widget / <Add Widget>
+php bin/magento cache:clean and 
+php bin/magento cache:flush
+Then we will be able to see the new products on the home page.
+
+#M2 Sliders_1		https://www.youtube.com/watch?v=BfPGW8gUBDs	https://github.com/Magestore/Bannerslider-Magento2
+1) disable all cache
+2) You also should run the Magento software in DEVELOPER MODE when you’re extending or customizing it. You can use this command line to show current mode :
+>php bin/magento deploy:mode:show
+Use this command to change to developer mode :
+>php bin/magento deploy:mode:set developer
+3)Install/Verify installation
+ a) by composer:  m2>composer require magentostore/module-bannerslider
+ b) by uploading: m2>git clone git@github.com:Magestore/Bannerslider.git	//SSH		
+		  m2>git clone https://github.com/Magestore/Bannerslider.git 	//HTTPS
+    copy files to /app/code/Magestore/Bannerslider	
+    m2> php bin/magento setup:upgrade
+	
+	*Please re-run Magento compile command
+	#the message Please re-run Magento compile command could be just ignored, because Magento 2 compiles the files automatically 
+	on the first page load.  in default or developer mode. If you're in production mode you need to either run the CLI command 
+	to set production mode or run the individual compile commands with a -S switch on set production mode command 
+	(so it doesn't re-run the compile commands again)
+	m2> php bin/magento setup:di:compile
+	
+    m2> php bin/magento setup:static-content:deploy
+
+#M2 Sliders_2	https://www.classyllama.com/blog/creating-a-custom-widget-in-magento-2		app\code\ClassyLlama\SortedProductsWidget
+#M2 Sliders_3	https://www.toptal.com/magento/custom-widgets-in-magento-2			app/code/Toptal/CustomWidget
+		A) Add a New Product List to the Homepage Using a Widget
+			Content/Widget/<Add Widget>/"Catalog New Product List"
+				      		   /Design Theme/"Luma"
+						   /Storefront Properties	"Select the All Store Views option"
+						   /Layout Updates
+						   /Widget Options
+Then we will be able to see the new products on the home page.
+		B) Create a Custom Widget in Magento 2 (the best way of adding and editing content inside CMS blocks or pages)
+			FS			
+			app/code/Toptal/CustomWidget/composer.json		"{}"
+			app/code/Toptal/CustomWidget/registration.php
+			app/code/Toptal/CustomWidget/etc/module.xml		//module name="Mageplaza_HelloWorld"
+				>php bin/magento module:status
+				>php bin/magento module:enable Ns_MN
+				>php bin/magento setup:upgrade			//to check and upgrade module database. 
+				app/code/Ns/MN/etc/frontend/routes.xml		//<route id="ns" frontName="mn"><module name="Ns_MN" />
+				>>http://example.com/modulename/*
+				app/code/Mageplaza/HelloWorld/Controller/Index/Display.php	//M1: class Ns_Mn_IndexController extends Mage_Core_Controller_Front_Action
+												//M2: namespace NsMN\Controller\Index;
+												      class Display extends \Magento\Framework\App\Action\Action {
+												      public function __construct(
+													\Magento\Framework\App\Action\Context $context,
+													\Magento\Framework\View\Result\PageFactory $pageFactory)
+													{
+														$this->_pageFactory = $pageFactory;
+														return parent::__construct($context);
+													}
+				>>http://example.com/mn/index/display
+
+			app/code/Toptal/CustomWidget/etc/widget.xml		"<label>Toptal Sample Widget</label>"
+			app/code/Toptal/CustomWidget/Block/Widget/Samplewidget.php
+			app/code/Toptal/CustomWidget/Block/view/frontend/templates/widget/samplewidget.phtml
+			>php bin/magento cache:clean 
+			>php bin/magento cache:flush
+			
+			>./bin/magento cache:disable
+			>./bin/magento module:status
+			>./bin/magento module:enable Toptal_Blog
+
+			***********https://www.toptal.com/magento/magento-2-tutorial-building-a-complete-module********** https://github.com/gabrielqs/toptal_blog			
+			app/code/Toptal/Blog/Setup/InstallSchema.php				//M2: namespace Mageplaza\HelloWorld\Setup;
+												class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
+			>./bin/magento setup:upgrade
+			app/code/Toptal/Blog/Setup/UpgradeData.php
+			app/code/Toptal/Blog/Model/ResourceModel/Post.php
+			app/code/Toptal/Blog/Model/ResourceModel/Post/Collection.php
+			app/code/Toptal/Blog/Api/Data/PostInterface.php				//M2: namespace Toptal\Blog\Api\Data;
+												      interface PostInterface {
+													const POST_ID = 'post_id';
+													... getId(); setId(); ...
+			app/code/Toptal/Blog/Model/Post.php						// M1: class Ns_Mn_Model_Type extends Mage_Core_Model_Abstract
+													// M2: namespace Toptal\Blog\Model;
+													use \Magento\Framework\Model\AbstractModel;
+													use \Magento\Framework\DataObject\IdentityInterface;
+													use \Toptal\Blog\Api\Data\PostInterface;
+													/**
+													 * Class File
+													 * @package Toptal\Blog\Model
+ 													 * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+													 */
+													class Post extends AbstractModel implements PostInterface, IdentityInterface
+			app/code/Toptal/Blog/etc/frontend/routes.xml
+			app/code/Toptal/Blog/Controller/Index/Index.php
+				http://magento2.dev/blog/index/index
+			app/code/Toptal/Blog/view/frontend/layout/blog_index_index.xml
+			app/code/Toptal/Blog/Block/Posts.php
+			app/code/Toptal/Blog/view/frontend/templates/post/list.phtml
+			app/code/Toptal/Blog/Controller/Post/View.php
+			app/code/Toptal/Blog/Block/View.php					//M1: class Ns_Mn_Block_list extends Mage_Core_Block_Template
+												//M2: namespace Ns\Mn\Block;
+												class Display extends \Magento\Framework\View\Element\Template
+												public function __construct(\Magento\Framework\View\Element\Template\Context $context)
+												{
+													parent::__construct($context);
+												}
+			app/code/Toptal/Blog/view/frontend/templates/post/view.phtml		//echo $block->sayHello();
+			app/code/Toptal/Blog/view/frontend/layout/blog_post_view.xml
+			
+			
+#M2 Sliders_4
+
+(locate php folder in M2 folder):
+m2/app/bin>C:\wamp64\bin\php\php7.9.4\php.exe magento setup:upgrade
+
+
+Video
+https://www.youtube.com/watch?v=9bYjZaAvn0Q	Intro to Magento 2: Your First Module - PHPConf.Asia
+10:55	Heavily cached $ indexed, with native FPC (Varnish)
+16:43	IDE + step debugger (PHPStorm + xdebug (+ Magicento))
+	VM: COmmunity Vagrant & Docker options 
+	Docker image
+	Dev. mode
+
+50:00	M2/Interseption  
+
+***M1 import/export	
+При создании CSV файла для импорта через Magmi убедитесь, что у вас есть возможность сохранить все значения в двойных кавычках.	
+Инструкция импорта: Вам необходимо сформировать CSV файл для импорта, включающий в себя информацию о товарах. Основные характеристики файла импорта:
+*разделителем в файле является точка с запятой;
+*кодировка файла utf-8;
+*в файле обязательно должны присутствовать следующие поля (колонки): 
+Sku, Name, Description, Short Description,Weight, Price, Tax Class id.	
+OpenOffice во всем превосходит эксель ПРИ РАБОТЕ С CSV!
+Проверено лично при работе с базой в 250тыс товаров.
+						https://www.youtube.com/watch?v=sJXJybxm8TE	Урок 16-1. Экспорт и импорт в Magento - быстрое редактирование большого количества товаров.
+						https://www.mag-manager.com/product-information/magento-product-management/required-magento-2-import-values/
+						https://www.mag-manager.com/free-download/
+						https://support.emagicone.com/717624-How-To-Exclude-Store-Manager-From-Scanning-By-Antivirus
+						https://www.templatemonster.com/help/ru/magento-how-to-create-csv-file-for-products-import.html
+						
+						(Since every release of Store Manager software contains new improvements and enhancements that lead to the code changes 
+						and new functionality, antivirus program does not recognize the application and correspondingly, 
+						restricts further download.)
+
+#M1 Export drawbacks:
+* нет возможности импортировать несколько изображений (галерея изображений и т.п.);
+* нет возможности импорта категорий;
+* нет возможности импорта перекрестных продаж и сопутствующих товаров;
+* нет возможности импортировать несколько цен (для разных групп клиентов);
+* варианты продуктов
+
+*Ultimate Magento 2 Export Guide			https://firebearstudio.com/blog/ultimate-magento-2-export-guide.html
+The default platform provides two ways to export the desired data from Magento 2.
+1) Find the appropriate grid and run the procedure (not all grids provide export functionality) //Orders grid -> .csv with orders-related data.
+2) System -> Data Transfer -> Export. Select entity type 
+	(the standard Magento 2 export is limited to 4 entities: Advanced Pricing, Products, Customers Main File, and Customer Addresses)
+	apply the SKU filter and see what happens. Type “24-MB03” in the appropriate field and run export
+	
+Adm/System/Import-Export -> .csv
+OpenOffice/Open scalc(UTF-8, ', ; ', поля в кавычках как текст)
+sku, category, image, small_image, thumbnail
+images: media/catalog/categotry/product s-small, l-large  (скопировать все изображения в папку import)
+экспорт таблицы, изображения, -> /import 
+	Del: image_label, thumbnail_image_label, small_image_label -> File/Save as ...
+Admin/System/Import/file.csv (Prouduct, Append/Replace complex data - обнавление/удаление в БД)
+
+***M2 import/export
+	При создании CSV файла для импорта через Magmi убедитесь, что у вас есть возможность сохранить все значения в двойных кавычках.
+	Import/Behaviour: Stop on Error
+	Fields enclosure [] 	(on: activity="Gym"|"Hiking"|"Overnight"|,fetures_bags="Audio Pocket"|material="Nylon")
+				(off: activity=Gym|Hiking|Overnight|,fetures_bags=Audio Pocket|material=Nylon|Polyester)
+
+### We can't find required columns: sku.
+(Error on [replasing values on row (Categ) and] saving as csv with UTF-8 text encoding
+
+#Default Magento 2 Export Drawbacks:
+- Not all entities can be exported – a huge problem when it comes to integration with other platforms that require certain information that cannot be exported;
+- Limited data export for supported entities – some platforms may require specific information that cannot be exported from Magento 2;
+- Lack of export mapping – you cannot create custom export file mapping that also obstructs integration with third party platforms;
+- No data export sources selection – with the default Magento 2 export, you cannot select where to export your files which is also a great inconvenience.
+To fix all these problems, you need a third-party Magento 2 export extension. Usually import and export tools are combined within one module like our 
+Improved Import & Export which adds all the aforementioned lacking features to the default platform.
+
+***M. import/export Plugins:
+- MAGMI M. Extension				https://trellis.co/blog/uploading-products-magento-product-excel/
+	Instructions: 				+++http://web-data-extractor.net/import-tovarov-v-magento-step-by-step/
+		
+	/magmi, +/plugins			https://sourceforge.net/projects/magmi/files/magmi-0.7/plugins/packages/
+	>>site.com/magmi/web/magmi.php
+	Лучший импорт товаров MAGMI просит логин и пароль: magmi/magmi, 
+	После того как вы пропишете вашу базу данных и доступ к ней, у вас автоматом логин и пароль станут те же, что и для входа в административную часть Magento.
+	+++https://community.magento.com/t5/Russian/%D0%9B%D1%83%D1%87%D1%88%D0%B8%D0%B9-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%BE%D0%B2-MAGMI-%D0%BF%D1%80%D0%BE%D1%81%D0%B8%D1%82-%D0%BB%D0%BE%D0%B3%D0%B8%D0%BD-%D0%B8-%D0%BF%D0%B0%D1%80%D0%BE%D0%BB%D1%8C/td-p/24047
+	+++http://web-data-extractor.net/import-tovarov-v-magento-step-by-step/
+
+	https://nulled.in/threads/240817/page-4:
+	+генерировать CSV файл для импорта(';'-separator, utf-8, nessesary fields), включающий в себя информацию о товарах. с помощью Datacol,
+	+CSV-файл нужно поместить в var/import, если нет папки import – создать.
+	>в разделе Configure Global Parameters настраиваешь подкючение к бд и тамже жмешь Save global parameters
+	>в разделе Configure Current Profile (Default) находишь подраздел Datasources. Здесь выбираешь где у тебя лежит CSV - локально или удаленно.
+	>если локально то магми сам покажет доступные файлы для импорта.
+	>в подразделе CSV options выставляй свои сепараторы.
+	>если нужны дополнительные обработчики импорта - скачай. http://sourceforge.net/projects/magmi/files/magmi-0.7/plugins/packages/
+	>после всего иди в раздел Run Magmi и жми Run import.
+	#CSVs base directory: В базовом каталоге CSV на интерфейсе magmi попробуйте изменить var/import в /var/import
+	вы можете запустить magmi с помощью команды из корневого каталога magento:	
+	$ php magmi/magmi.cli.php -mode=xcreate -SKUF:matchfield=sku
+	Вся конфигурация должна быть в /magmi/config. Журналы, которые вы найдете в /magmi/state
+	настроить глобальные параметры как:
+		host localhost
+		порт 3306
+		версия magento 1.9.x
+		Имя базы данных yourDB name
+		Имя пользователя и пароль пользователя
+		Текущий профиль По умолчанию
+		Источники данных
+
+		CSV Datasource v1.3.1
+		Режим импорта CSV локальный
+		CSV базовый каталог var/import
+		Заголовок CSV в строке Array и введите все параметры в соответствии с требованиями и сохраните профиль
+		Перезапустить apache2 sudo service apache2 restart
+		Обновите панель администратора magento
+		755, 644
+		+You have to save profile first.
+		+Give Profile name, <Copy Profile & Switch>
+		#https://stackoverflow.com/questions/37328185/magmi-errors-no-profile-saved-yet-run-disabled
+		
+		https://understandinge.com/course/importing-products-magento/
+
+*Madmi Import Images 	Magmi supports both local image & remote image import from urls. it also supports image gallery to associate multiple images with a product All image import is done by using 
+Image attributes processor plugin.		http://wiki.magmi.org/index.php?title=Image_attributes_processor
+
+*https://stackoverflow.com/questions/28032939/mass-importing-images-magmi
+How would I mass upload products with images all at once. 
+Say I have 1000 products with images can I upload all in one step and how? Instead of individually uploading one product and image at a time.
+>Magmi only updates the database, and since images are not stored in the database, you can not upload the actual image files using Magmi. 
+You need to first upload all of the images onto your server using FTP, then you can use Magmi to map each product to its appropriate image.
+So if you have products with skus 001, 002, and 003. And images with file names 001.jpg, 002.jpg, and 003.jpg. 
+You first upload the images to the server, then make your CSV look like the following in order to map the images to the correct products.
+
+sku,image,thumbnail,small_image
+001,001.jpg,001.jpg,001.jpg
+002,002.jpg,002.jpg,002.jpg
+003,003.jpg,003.jpg,003.jpg
+Also make sure that you upload the images to the correct directory which is matched in the Magmi "image attribute processor" plugin
+		
+	+https://stackoverflow.com/questions/28032939/mass-importing-images-magmi
+		1) onfigure your Image Attribute Processor like the following image
+			IAP v1.0.25
+			Img search path: media/import
+			Img Renaming:
+			Img import mode: Override existing images Assign only existing images: No
+			Pre-download check for remote images: Enable
+			Debug mode: Disable
+		2) Next, upload all your images to /Magento Root/media/import/.
+		3) Finally, update your CSV to include the image name for the following fields. image, small_image, thumbnail. Example: image.jpg
+		You can also add the label for these as well. image_label, small_image_label, thumbnail_label
+		
+
+						https://www.bestresponsemedia.co.uk/how-to-install-and-use-magmi-for-magento/
+
+- the ImportExport Interface			https://www.integer-net.com/importing-products-with-the-import-export-interface/
+- FastSimpleImport				https://www.integer-net.com/fastsimpleimport/
+- Extension overview				https://firebearstudio.com/the-improved-import.html
+
+
+################################################################ M. Errors ######################################################
+### Er: Magento phpstorm “method not found in class” 			
+							https://www.reddit.com/r/Magento/comments/2vubpx/magento_phpstorm_method_not_found_in_class/
+
+some example methods:
+getProductUrl, getName, productAttribute, getRatingSummary, and on and on
+
+/** @var Mage_Catalog_Model_Product $product **/
+$product = Mage::getModel('catalog/product');
+
+$productCollection = Mage::getModel('catalog/product')->getCollection();
+
+/** @var Mage_Catalog_Model_Product[] $products **/
+$products = array($product,$product,$product);
+
+
+### Required parameter 'theme_dir' was not passed (after adding theme) 			https://magento.stackexchange.com/questions/100011/required-parameter-theme-dir-was-not-passed
+x app/design/frontend/<Vendor>								//Delete the content
+- var/view_preprocessed & pub/static/frontend						//Delete all the content of folder
+- `theme` table and delete the entry for your created theme.				//delete the entry for your created theme.
+- `core_config_data` table and search for theme and you will get path records like 
+	design/theme/theme_id								//replace your default theme id in it
+- >php bin/magento cache:flush
+#  this didn't worked at all instead the admin went into text format. Then after running 
+	>php bin/magento setup:static-content:deploy admin went back to UI
+	*The static view files deployment command enables you to write static files to the Magento file system when the Magento software is set for production mode.
+	*Run all Magento CLI commands as the Magento file system owner (Log in to the Magento server as, or switch to, the Magento file system owner .).
+	*Static view files are located in the <your Magento install dir>/pub/static directory, 
+		and some are cached in the <your Magento install dir>/var/view_preprocessed directory as well.
+	Static view files deployment is affected by Magento modes as follows:
+	@Default and developer modes: Magento generates them on demand, but the rest are cached in a file for speed of access.
+	@Production mode: Static files are not generated or cached.
+	>php bin/magento setup:static-content:deploy en_US --exclude-theme Magento/luma --no-html-minify	//deploys static content for the US English (en_US) language, excludes the Luma theme provided with Magento, and does not minify HTML files.
+	>php bin/magento setup:static-content:deploy --area frontend --no-fonts --theme Magento/luma		//generates static view files for all languages, the frontend area only, the Magento Luma theme only, without generating fonts:
+
+- rm -rf vendor/theme
+
+- you have a theme configured which doesn't exist on the file-system (any more): 	Content -> Configuration, select the scope (global, website, store_view) and change the theme. After also remove it from Content -> Themes.
+											Admin -> Content -> Design -> Themes Remove unnecessary theme
+- sql> UPDATE core_config_data SET value=NULL WHERE path='design/theme/theme_id';
+then clear the pub/static/frontend, var/view_preprocessing, var/cache, var/page_cache directories.
+
+### Images can't be uploaded using WYSIWYG if media directory is a symlink #13929	Images can't be uploaded using WYSIWYG if media directory is a symlink #13929
+
+
+################################################################ M. Errors ######################################################
+
+*** Plugins for dev:
+
+* magento2-code-generator	https://www.youtube.com/watch?v=f8qBnOIRIs4
+				https://github.com/staempfli/magento2-code-generator
+*
+*
+
+*the plugin (Magicento) is pretty much an absolute must for Magento development, as it will make your life 10x easier. 
+It should auto-detect most of the things (like the $product above) so you don't have to manually tag them
+https://www.youtube.com/watch?v=r0kDf9McW9o
+File/Settings/Plugins/Magicento/<Download and Install>/Restart
+/Mage.php/RB/Magicento Actions/Create Module(Code Poo, NS, M, ... , Depends, include...)
+/config.xml/RB/Select Target/1.Project View/
+File/Settings/File Templates/magicento_installer, _helper, _config, _module
+File/Settings/Other Settings/Magicento
+/Mage.php/RB/Magicento Actions/Toggle Template Hints
+DB: magicento_test_setup
+/Mage.php/RB/Magicento Actions/Remove the installer from core resource table
+/Mage.php/RB/Magicento Actions/Add @var
+/config.xml/<models><ns><class></></>
+	<catalog><rewrite><product>Magicento_Test_Model_Product
+	+Magicento/Catalog/Model/Product.php extends Mage_Catalog_Model_Product
+
+/Mage.php/RB/Magicento Actions/Go to Block
+/Mage.php/RB/Magicento Actions/Copy Template (choose Package, Theme)
+
+/Mage.php/RB/Magicento Actions/Compare with Original
++/Observer
++system.xml
+
+/Mage.php/RB/Magicento Actions/Evaluate in Magento
+
+
+* M. + XDebug		https://www.youtube.com/watch?v=ocfbCmI-M1M
+
+* M. + JS			https://devdocs.magento.com/videos/fundamentals/add-a-javascript-module/
+			https://www.youtube.com/watch?v=tHxebA-jOSo
+
+
+***Changing M. Admin session (Extend the Session Timeout)
+M1: System > Advanced > Admin Expand Security
+Default is 900 seconds which is 15 minutes. Set Session Lifetime (seconds) to 86400.
+M2: Stores > Settings > Configuration > Advanced > Admin > Security > Admin Session Lifetime (seconds)
+DB: core_config_data -> admin/security/session_lifetime
+
+***Create a Restore Point with Magentomatic
+Magentomatic is a tool developed by Vonnda to automatically manage common developer tasks in Magento like:
+	• adding an admin user
+	• backing up the database
+	• restoring the database
+	• deleting users/products/orders
+	• setting config values
+	• clearing the cache
+	• verifying integrity of core files
+	• and more
+
+
+***Make a Database Backup
+Change directories to magentomatic
+>php magentomatic.php backup
+and follow the prompts to make a backup of the database.
+For a list of commands type 
+>php magentomatic.php
+
+***Turning Error Reporting On
+By default Magento tries to suppress error messages. In a production enviornment this is a good thing; however, for developing we need error reporting enabled.
+Open up index.php and uncomment: ini_set('display_errors', 1);
+Then set Magento to Developer Mode by changing:
+if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
+	Mage::setIsDeveloperMode(true);
+}
+to this:
+//if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
+	Mage::setIsDeveloperMode(true);
+//}
+Note: You could also set the $_SERVER variable but we found this method unreliable.
+
+***Magento log and show you how you can determine what data you have access to. (System > Configuration > Developer > Log Settings Eabled)
+public function indexAction() {
+	$params = $this->getRequest()->getParams();
+	$customer = Mage::getModel('customer/customer')->load($params['id']);
+	Mage::log($customer->getData());
+	echo 'Hello, '. $customer->getName();
+}
+Open up var/log/system.log
+to have this refresh automatically when new output is appended to the log. On Unix like systems you can use tail
+>tail -f var/log/system.log
+
+***M Theming (no config.xml except for widets)
+*M theme hierarchy:		[Mg. responsive]
+	M. fallback dir (default) -> custom theme (to overwrite fallback dirs/spec. elements of M. pages.)
+	Fallback system for theme files:
+	Fallback level 1
+	...
+	(Global) Current config. scope -> to apply a new theme
+>>>	!!!	System | Confguration | General | Design | Packcage (rwd -> bookstore)
+	Default Config. scope is a single website/store view.
+	Multistore: diff. designs (theme/design packcage) for diff. stores.
+	Switch to the Conf. scope to select the appropriate store view.
+ 
+				M1								M2 (composer.json, registration.php, theme.xml)
+T. location	app/design/frontend/default/responsive				app/design/frontend/<Vendor>/<theme n>	/Magento/luma
+		app/design/frontend/default/responsive/template						    	      /<Vendor_Module>/templates 
+		app/design/frontend/default/responsive/layout							      /<Vendor_Module>/layout/override
+																      /web, /css/source	
+		skin/frontend/default/responsive
+		skin/frontend/default/responsive/images
+		skin/frontend/default/responsive/css
+1) FS, Files (copy from the "base" theme app/design/frontend/base/default/template/)
+2)  skin/frontend/bookstore/default/css  		//Bootstrap
+    skin/frontend/bookstore/default/js			//jQ
+    app/design/frontend/bookstore/default/layout/local.xml	
+								//+css
+								//+js
+								//-style.css
+	<action method="addItem">
+3) app/design/frontend/bookstore/template/page/ x.phtml
+   app/design/frontend/bookstore/template/page/html/header.phtml
++) Activate theme:
+	System | Cache Management
+	System | Confguration | Design tab
+4) Creating the CMS block with the links: CMS | Static Blocks (Block ID = "topbar_cmslinks", Block Hrml Code)
+	local.xml: <reference name="header">
+			<block type="cms/block" name="topbar_cmslinks" as="topbar_cmslinks">
+5) header.phtml
+
+********************************************************************
+Catalog -> Categories, Products
+Content -> Design: Configuration, Themes, Pages, Widget, Blocks, Custom Templates, Schedule
+	Block: featuring diff. product categories on homepage, separating product features on product pages.
+********************************************************************
+
+M2 To create a basic theme structure:
+# Troubleshooting: >php bin/magento setup:static-content:deploy en_US
+		   the pub/static/frontend and var/view_preprocessed directories //delete all files
+		   (>grunt clean:<theme_name>)
+  Add a design exception:   Content | Design | Configuration | <Store View> | <Edit>
+				Design Rule | <Add New User Agent Rule>
+				Search String | user-agent (strings || RegExps)
+				Theme Name | theme for matching agent
+
+-3) Logo 			Content | Design | Configuration | <Header> 
+-2) Content | Pages						//CMS Blocks, Pages
+-1) System | Custom Variables
+0)  >php bin/magento cache:disable				//When your theme changes are not visible even after clearing the cache, try redeploying your static files
+1) <Magento root directory>/app/design/frontend/Packt/basic
+2) 			   /app/design/frontend/Packt/basic/theme.xml
+3)			   /app/design/frontend/Packt/basic/registration.php
+4)			   /app/design/frontend/Packt/basic/etc/view.xml
+5)			   /app/design/frontend/Packt/basic/web	FS
+6)						<theme_dir>/web/images/logo.svg, logo.png
+7)			   /app/design/frontend/Packt/basic/Magento_Theme/layout/default.xml
+8) Navigate to Stores | Confguration | Design | Design Theme: Basic theme  //In the configuration record corresponding to your store view
++) Changing Luma theme to make it cCustom theme 		+++https://ru-clip.net/video/s_A-q6XYpm4/how-to-make-changes-in-magento-2-luma-theme-to-make-it-a-custom-theme.html
+	a) /web/images/custom-logo.svg					//chg logo
+	b) /vendor/mg/module-theme/view/fe/layout/default.xml -> /NS/Tn/Magento_Theme/layout/default.xml	//remove copyright
+	c) _navigation.less	@_nav_level0-active_border-color:						//chg active menu item border bottom color
+	   lib/web/source/lib/variables/_navigation.less @color=blue;					variable copy
+
+0) Composer (composer.json)
+1) FS <Magento root directory>/app/design/frontend/Packt/compstore
+2) /theme.xml
+3) Packt/compstore/media/preview.jpg
+4) registration.php 
+5) <Magento _theme_dir>/web/css/styles.less
+6) Copy the packt/vendor/magento/theme-frontend-blank/web/css/_styles.less fle to the 
+	packt/app/design/frontend/Packt/compstore/web/css location
+7)	packt/app/design/frontend/compstore/web/css/source/compstore.less
+8)	packt/app/design/frontend/compstore/web/css/source/_theme.less
+9)	app/design/frontend/Packt/compstore/Magento_Theme/web/images/logo.png
+10)
+    Content | Pages	
+    System | Custom Variables
+5+)	app/design/frontend/Packt/basic/etc/view.xml				//conf. the image properties of the products
+	app/design/frontend/Packt/basic/web
+  	app/design/frontend/Packt/basic/Magento_Theme/layout/default.xml
+   Stores | Confguration | Design | Design Theme [Basic theme]			//# Magento 2 Design Theme tab is missing >  Content/Design/Configuration
+
+11) Products | Categories Create three new subcategories of Default Category named Notebook, Desktops, and Peripherals.
+12) Products | Catalog | <Add Product> 
+13) Content | Widgets | <Add Widget>
+	Type	(CMS Static Block || Own)
+	Design Theme
+	W. Type
+	Assign to Store Views
+	Layout Updates
+		Display On
+		Page
+		Container
+		Template
+
+14) Content | Blocks <Insert Widget>
+15) Create Custom template: 
+	packt/app/design/frontend/Packt/compstore/Magento_Catalog
+	packt/app/design/frontend/Packt/compstore	<- vendor/magento/module_catalog/view/frontend/templates
+	      app/design/frontend/Packt/compstore/Magento_Catalog/templates/product/view/addto.phtml - chg.
+16) Delete the var/view_preprocessed/ and 
+	       pub/static/frontend/Packt/compstore/ directories.
+17) Deploy static content fles by running the 
+>php magento setup:staticcontent:deploy
+18) If necessary, give write permission to the pub directory.
+
+*** Allow symlinks		Magento recommends to not use templates via symlinks: 
+				Warning! Enabling this feature is not recommended on production environments because it represents a potential security risk.
+				https://magento.stackexchange.com/questions/35243/are-symlinks-on-templates-a-security-problem-and-if-yes-why
+
+a) System > Configuration > Developer > Template Settings Make sure Allow Symlinks is set to Yes (?)
+b) UPDATE core_config_data SET value=1 WHERE path='dev/template/allow_symlink'; 
+	>n98-magerun.phar cache:dir:flush
+	>vagrant halt && vagrant up		//using Vagrant
+c) Symlinks cause ‘Not valid template file’ in Magento 1.9.3.4		https://tomlankhorst.nl/not-valid-template-file-magento-1-9-3-4-symlinks/
+	>n98-magerun config:set dev/template/allow_symlink 1
+
+*** Magerun					https://github.com/netz98/n98-magerun
+
+
+
+***Speed up M2					https://www.youtube.com/watch?v=PmUtctiMCWA
+1. Run a time to first byte TTFB audit.
+2. Perform a 3rd-party extensions audit.
+	Stores/Config/Advanced/Advanced/ -> List custom ext. >webpagetest.org //measures perf. metrics
+3. Choose the right hosting.
+4. Set up production mode.
+5. Use Full Page Cache and Varnish. 
+
+
+***HOW TO FIX THE MOST COMMON ISSUES IN MAGENTO 2		https://amasty.com/blog/fix-common-issues-magento-2/
+
+
+### M2 Block not shown inside a page				https://github.com/magento/magento2/issues/9528
+   Magento 2 Static Blocks dont show up on category pages	https://magento.stackexchange.com/questions/216916/magento-2-static-blocks-dont-show-up-on-category-pages
+	Try to run:	
+		>php bin/magento indexer:reindex
+		>php bin/magento cache:flush
+	EDIT:
+		Try adding them as widgets maybe it will work. 
+		Go into the admin to Content > Widgets > Add Widget. 
+		From there you can configure your widgets to appear on Specific/All categories:
+
+
+$$$ M. Freelance:
+https://www.freelancer.com.ru/job-search/magento-18-to-19/
+https://www.youtube.com/watch?v=7gH8zSFjYZ8			Upwork
+
+
+$$$ M. Forums:
+https://nulled.in/threads/239079/page-255
+
+$$$ M. Extensions:
+https://www.rugento.ru/magento-modules/magento2.html
+
+*** M. Task						https://docs.magento.com/m2/ce/user_guide/catalog/navigation-top.html
+- HP/Pagination						Content/Design/Configuration/[store view to configure]/Action/<Edit>/Other Settings/Pagination
+- HP/ Categ/Products show*				CMS/Pages/Content/ {{block type="catalog/product_list" category_id="3" column_count="4" template="catalog/product/list.phtml"}}
+							https://www.youtube.com/watch?v=PlxABizZYZo
+- HP/ Categ/Products show layout/template (* default)
+- HP/ Categ/Products show by slider
+- HP/ Categ/Products show by Block(CategID, prodAmount)/layout
+- HP/ Categ/Products/Slider -> <a>ViewAll to Categ 2
+- HP/ Categ/Product/Slider <- Ctrl.action()
+
+-- *Вывести товары из категории. Вставить список продуктов в CMS статический блок или CMS страницу.	
+http://www.magefast.com/%D0%B2%D1%8B%D0%B2%D0%B5%D1%81%D1%82%D0%B8-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D1%8B-%D0%B8%D0%B7-%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D0%B8-cms-magento/
+{{block type=”catalog/product_list” name=”product_listing” template=”catalog/product/list.phtml” category_id=”8” }}	//catalog/product/list.phtml
+ 
+* Top Navigation					Stores/Settings/Configuration/Catalog/Catalog/Category Top Navigation section.
+* M dev toolbar						https://www.mgt-commerce.com/documentation/magento2-mgt-developer-toolbar
+
+**Zero-day:						https://www.trustwave.com/Resources/SpiderLabs-Blog/Zero-day-in-Magmi-database-client-for-popular-e-commerce-platform-Magento-targeted-in-the-wild/
+							https://blog.srm-solutions.com/mag-exploits/

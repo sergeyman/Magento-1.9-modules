@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <siteblocks_test_index>
+        <reference name="head">
+            <action method="setTitle">
+                <title>My Siteblocks</title>
+            </action>
+        </reference>
+
+        <reference name="content">
+            <!--<block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>-->
+            <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list2.phtml">
+                <action method="setData">
+                    <name>category_id</name>
+                    <value>6</value>
+                    <name>amount</name>
+                    <value>7</value>
+                </action>
+            </block>
+        </reference>
+    </siteblocks_test_index>
+
+    <catalog_category_default>
+        <reference name="left">
+            <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+        <reference name="right">
+            <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_product_view>
+        <reference name="product.info.extrahint">
+            <block name="siteblocks.list" before="-" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+    </catalog_product_view>
+</layout>
